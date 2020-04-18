@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+# capture_output for subprocess.run requires at least python3.7
 
 from string import ascii_lowercase
 from subprocess import run
