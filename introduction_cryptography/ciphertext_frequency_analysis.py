@@ -6,7 +6,8 @@ from subprocess import run
 
 counts = list()
 digits = 0
-for char in ascii_lowercase:
+all_characters = ascii_lowercase + 'äöüß'
+for char in all_characters:
     p = run(
 	["grep", "-ci", char, "chiffrat.txt"],
 	capture_output=True,
