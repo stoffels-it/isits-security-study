@@ -1,33 +1,35 @@
 #!/usr/bin/python3
-# capture_output for subprocess.run requires at least python3.7
 
 from string import ascii_lowercase
-from subprocess import run
+from collections import OrderedDict
 
-counts = list()
-digits = 0
+filename = "chiffrat.txt"
 all_characters = ascii_lowercase + 'äöüß'
-for char in all_characters:
-    p = run(
-	["grep", "-ci", char, "chiffrat.txt"],
-	capture_output=True,
-    )
-    count = p.stdout
-    # get number of digits for leading whitespaces at later print
-    if len(count) > digits:
-        digits = len(count)
+char_count = dict()
+allsum = 0
 
-    # add as tuple to list
-    counts.append((char, int(count)))
+with open(filename, 'r') as infile:
+    for line in infile:
+        for char in line:
+            for achar in all_characters:
+                if achar == char.lower():
+                    allsum += 1
+                    if not achar in char_count:
+                        char_count[achar] = 1
+                    else:
+                        char_count[achar] += 1
 
-allsum = sum(count for _, count in counts)
+
 one_percent = allsum / 100
 
 print("all:", allsum)
-for char,count in counts:
-    relative = round(count / one_percent, 2)
+
+schar_count = OrderedDict(sorted(char_count.items(), key=lambda x:x[1], reverse=True))
+
+for curchar in schar_count:
+    relative = round(char_count[curchar] / one_percent, 2)
     print(
-	"character:", char,
-	"absolute:", (str(count)).rjust(digits),
+	"character:", curchar,
+	"absolute:", (str(char_count[curchar])).rjust(2),
 	"relative:", relative
     )
