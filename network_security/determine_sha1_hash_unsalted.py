@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # A hash is given and compared with hashes generated from a password
 # dictionary to determine the password. The hashes are without salt.
 
