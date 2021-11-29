@@ -33,7 +33,7 @@ def get_lanman_hash(pw, constant):
 check = (get_lanman_hash(check_pw, constant) == check_hash)
 print("implementation check result is:", check)
 
-for pw in range(000000000, 999999999):
+for pw in range(100000000, 999999999):
     result = get_lanman_hash(pw, constant)
     if result == find_hash:
         print("requested pw is:", pw)
